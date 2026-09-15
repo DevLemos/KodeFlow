@@ -1,5 +1,7 @@
 using KodeFlow.Data.Context;
 using KodeFlow.Extensions;
+using KodeFlow.Filters;
+using KodeFlow.Logging;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
@@ -27,6 +29,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString)
     .LogTo(Console.WriteLine, LogLevel.Information); //Loga todas as queries
 });
+
+builder.Services.AddScoped<LogExecucaoFilter>();
+builder.Services.AddScoped<TempoExecucaoFilter>();
+
+//Adiciona o provedor de log personalizado e define o nível mínimo com LogLevel.Information
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
 
 var app = builder.Build();
 
