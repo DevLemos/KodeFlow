@@ -1,4 +1,5 @@
 ﻿using KodeFlow.Data.Context;
+using KodeFlow.Filters;
 using KodeFlow.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ namespace KodeFlow.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(LogExecucaoFilter))]
+        [ServiceFilter(typeof(TempoExecucaoFilter))]
         public async Task<ActionResult<IEnumerable<Tutor>>> GetTutoresAsync()
         {
             try
