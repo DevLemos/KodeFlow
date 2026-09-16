@@ -11,12 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Evitar serialização cíclica entre os objetos =========================================================================================
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler =
-        ReferenceHandler.IgnoreCycles;
-    });
+builder.Services.AddControllers(options =>
+{
+    //Adicionando um filtro para exceção global do meu projeto
+    options.Filters.Add(typeof(ExceptionFilter));
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler =
+    ReferenceHandler.IgnoreCycles;
+});
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

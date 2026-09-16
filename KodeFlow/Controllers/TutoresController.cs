@@ -41,16 +41,18 @@ namespace KodeFlow.Controllers
 
         [HttpGet("{id:int}", Name = "GetTutorById")]
         public async Task<ActionResult<Tutor>> GetTutorAsync(int id)
-        {        
-            var tutor = await _context.Tutores
-                .Include(t => t.Contato)
-                .Include(t => t.Endereco)
-                .FirstOrDefaultAsync(t => t.TutorId == id);
+        {
+            //var tutor = await _context.Tutores
+            //    .Include(t => t.Contato)
+            //    .Include(t => t.Endereco)
+            //    .FirstOrDefaultAsync(t => t.TutorId == id);
 
-            if (tutor is null)
-                return NotFound($"O tutor com id:{id} não existe.");
+            //if (tutor is null)
+            //    return NotFound($"O tutor com id:{id} não existe.");
 
-            return Ok(tutor);
+            //return Ok(tutor);
+
+            throw new ArgumentException("Ocorreu um erro no tratamento do request.");
         }
 
 
